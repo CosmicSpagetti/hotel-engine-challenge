@@ -7,7 +7,9 @@ describe 'User endpoint' do
 
     post '/api/v1/users', params: params.to_json, headers: headers
 
-    expect(User.first.email).to eq('billy@example.com') 
+    user = User.find_by(email: params['email'])
+
+    expect(user.email).to eq('billy@example.com') 
     expect(JSON.parse(response.body)).to have_key('token')
     expect(JSON.parse(response.body)['token']).to be_a String
   end
