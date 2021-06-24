@@ -8,6 +8,10 @@ class MovieService
     new.get_results('popular')
   end
 
+  def self.get_upcoming_movies
+    new.get_results('upcoming')
+  end
+
   def get_results(url)
     response = conn.get(url)
     JSON.parse(response.body, symbolize_names: true)
