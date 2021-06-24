@@ -6,6 +6,10 @@ describe 'User endpoint' do
     headers = { 'Content-Type': 'application/json', 'Accept': 'application/json'}
 
     post '/api/v1/users', params: params.to_json, headers: headers
+
+    expect(User.first.email).to eq('billy@example.com') 
+    expect(JSON.parse(response.body)).to have_key('token')
+    expect(JSON.parse(response.body)['token']).to be_a String
   end
 
   it 'should log user in and respond with their token' do 
