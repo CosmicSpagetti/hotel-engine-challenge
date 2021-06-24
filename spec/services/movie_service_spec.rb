@@ -2,7 +2,7 @@ require 'rails_helper'
 
 describe 'Movie Db Service',:vcr do 
   it "should return popular movie list" do 
-    movies = MovieDbService.get_results('popular')
+    movies = MovieService.get_results('now_playing')
 
     expect(movie).to have_key(:data)
     expect(movie[:data].first).to have_key(:original_title)
