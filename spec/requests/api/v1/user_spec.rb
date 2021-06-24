@@ -6,7 +6,7 @@ describe 'User endpoint' do
 
     headers = { 'Content-Type': 'application/json', 'Accept': 'application/json'}
 
-    post '/api/v1/users', params: params headers: headers
+    post '/api/v1/users', params: params, headers: headers
   end
 
   it 'should log user in and respond with their token' do 
