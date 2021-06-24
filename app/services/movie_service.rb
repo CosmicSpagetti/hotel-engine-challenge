@@ -1,5 +1,9 @@
 class MovieService 
 
+  def self.get_popular_movies
+    new.get_results('now_playing')
+  end
+
   def get_results(url)
     response = conn.get(url)
     JSON.parse(response.body, symbolize_names: true)
