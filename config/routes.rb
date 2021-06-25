@@ -4,6 +4,7 @@ Rails.application.routes.draw do
     namespace :v1 do 
       post 'users', to: 'users#create'
       post 'authentication', to: 'authentication#authenticate'
+      get 'movies/list/:genre', to: 'movies#index'
     end
   end
 end
