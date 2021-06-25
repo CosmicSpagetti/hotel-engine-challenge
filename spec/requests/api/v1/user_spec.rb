@@ -13,21 +13,24 @@ describe 'User endpoint' do
 
     user = User.find_by(email: params[:email])
 
+    token = AuthenticateUser.call(user.email, params[:password]).result
+    
     expect(user.email).to eq('billy@example.com') 
 
     expect(JSON.parse(response.body)).to have_key('token')
-    expect(JSON.parse(response.body)['token']).to be_a String
+    expect(JSON.parse(response.body)['token']).to eq(token)
   end
 
   it 'should log user in and respond with their token' do 
     params = {"email": "billy23@example.com","password": "password123" }
-    User.create!(params)
+    user = User.create!(params)
     headers = {'Content-Type': 'application/json','Accept': 'application/json'}
 
     post '/api/v1/sessions', params: params.to_json, headers: headers
 
+    token = AuthenticateUser.call(user.email, params[:password]).result
     expect(JSON.parse(response.body)).to have_key('token')
-    expect(JSON.parse(response.body)['token']).to be_a String
+    expect(JSON.parse(response.body)['token']).to eq(token)
   end
 
   it 'should send error when wrong password is sent' do 
