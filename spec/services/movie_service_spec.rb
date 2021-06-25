@@ -3,7 +3,7 @@ require 'rails_helper'
 describe 'Movie Db Service',:vcr do 
   it "should return now playing movie list" do 
     movies = MovieService.get_now_playing_movies
-
+    # should create a mock instead of having 3 tests that look the same :/
     expect(movies).to have_key(:results)
     expect(movies[:results].first).to have_key(:original_title)
     expect(movies[:results].first).to have_key(:overview)
@@ -19,7 +19,7 @@ describe 'Movie Db Service',:vcr do
 
   it "should return popular movie list" do 
     movies = MovieService.get_popular_movies
-
+    
     expect(movies).to have_key(:results)
     expect(movies[:results].first).to have_key(:original_title)
     expect(movies[:results].first).to have_key(:overview)
@@ -47,5 +47,27 @@ describe 'Movie Db Service',:vcr do
     expect(movies[:results].first).to have_key(:vote_average)
     expect(movies[:results].first).to have_key(:vote_count)
     expect(movies[:results].first).to have_key(:genre_ids)
+  end
+
+  it 'should return movie you are looking for' do 
+    movies = MovieService.search_movies({'query'=> 'matrix'})
+
+    expect(movies).to have_key(:results)
+    expect(movies[:results].first).to have_key(:original_title)
+    expect(movies[:results].first[:original_title]).to eq('The Matrix')
+
+    movies = MovieService.search_movies({'query'=> 'shawshank redemption'})
+    expect(movies[:results].first[:original_title]).to eq('The Shawshank Redemption')
+  end
+
+  it 'should be able to paginate with page param added' do 
+    movies = MovieService.get_upcoming_movies 
+
+    expect(movies).to have_key(:page)
+    expect(movies[:page]).to eq(1)
+
+    movies_2 = MovieService.get_upcoming_movies({'page'=> 2})
+    expect(movies_2).to have_key(:page)
+    expect(movies_2[:page]).to eq(2)
   end
 end
