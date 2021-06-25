@@ -24,11 +24,11 @@ describe 'User endpoint' do
   it 'should log user in and respond with their token' do 
     params = {"email": "billy23@example.com","password": "password123" }
     user = User.create!(params)
-    headers = {'Content-Type': 'application/json','Accept': 'application/json'}
+    headers = {'Content-Type': 'application/json','Accept': 'application/json' }
+    token = AuthenticateUser.call(user.email, params[:password]).result
 
     post '/api/v1/sessions', params: params.to_json, headers: headers
 
-    token = AuthenticateUser.call(user.email, params[:password]).result
     expect(JSON.parse(response.body)).to have_key('token')
     expect(JSON.parse(response.body)['token']).to eq(token)
   end
