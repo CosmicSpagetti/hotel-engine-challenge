@@ -8,11 +8,13 @@ describe 'Movie request endpoint' do
 
   it 'should return filtered index according to genre' do
     user = User.create!(email: "billy23@example.com", password: "password123")
-    token = AuthenticateUser.call(user.email, password: "password123").result
+    token = AuthenticateUser.call(user.email,"password123").result
     headers = {'Content-Type': 'application/json','Accept': 'application/json', 'Authorization': token }
+
 
     get '/api/v1/movies/list/popular', headers: headers 
 
+    binding.pry
     expect(response).to be_successful
 
     result = JSON.parse(response.body, symbolize_names: true)[:data] 
@@ -23,8 +25,8 @@ describe 'Movie request endpoint' do
 
   it 'should return queried movie info returns array' do
     user = User.create!(email: "billy23@example.com", password: "password123")
-    token = AuthenticateUser.call(user.email, password: "password123").result
-    headers = {'Content-Type': 'application/json','Accept': 'application/json', 'Authorization': token }
+    token = AuthenticateUser.call(user.email, "password123").result
+    headers = {'Content-Type': 'application/json','Accept': 'application/json', 'Authorization': token }.to_json
 
     get '/api/v1/movies/search?query=matrix', headers: headers
 
@@ -38,8 +40,8 @@ describe 'Movie request endpoint' do
 
   it 'should return requested movie info' do
     user = User.create!(email: "billy23@example.com", password: "password123")
-    token = AuthenticateUser.call(user.email, password: "password123").result
-    headers = {'Content-Type': 'application/json','Accept': 'application/json', 'Authorization': token }
+    token = AuthenticateUser.call(user.email,"password123").result
+    headers = {'Content-Type': 'application/json','Accept': 'application/json', 'Authorization': token }.to_json
 
     get '/api/v1/movies/588921'
 
