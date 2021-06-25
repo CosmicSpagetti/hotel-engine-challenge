@@ -27,7 +27,7 @@ describe 'User endpoint' do
     headers = {'Content-Type': 'application/json','Accept': 'application/json' }
     token = AuthenticateUser.call(user.email, params[:password]).result
 
-    post '/api/v1/sessions', params: params.to_json, headers: headers
+    post '/api/v1/authenticate', params: params.to_json, headers: headers
 
     expect(JSON.parse(response.body)).to have_key('token')
     expect(JSON.parse(response.body)['token']).to eq(token)
@@ -40,7 +40,7 @@ describe 'User endpoint' do
 
     headers = {'Content-Type': 'application/json','Accept': 'application/json'}
 
-    post '/api/v1/sessions', params: params.to_json, headers: headers
+    post '/api/v1/authenticate', params: params.to_json, headers: headers
 
     expect(JSON.parse(response.body)).to have_key('error')
     expect(JSON.parse(response.body)['error']).to eq('Unable to authenticate user')
