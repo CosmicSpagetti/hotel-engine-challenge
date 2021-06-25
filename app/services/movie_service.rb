@@ -1,15 +1,7 @@
 class MovieService 
 
-  def self.get_now_playing_movies(params = {})
-    new.get_results('movie/now_playing', params)
-  end
-
-  def self.get_popular_movies(params = {})
-    new.get_results('movie/popular', params)
-  end
-
-  def self.get_upcoming_movies(params = {})
-    new.get_results('movie/upcoming', params)
+  def self.get_list(filter, params={})
+    new.get_results("movie/#{filter}", params)
   end
 
   def self.search_movies(params)
