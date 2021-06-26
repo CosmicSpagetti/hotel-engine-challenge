@@ -5,6 +5,8 @@ Rails.application.routes.draw do
       post 'users', to: 'users#create'
       post 'authentication', to: 'authentication#authenticate'
       get 'movies/list/:genre', to: 'movies#index'
+      get "movies/search", to: 'movies#search'
+      get "movie/:id", to: 'movies#show'
     end
   end
 end
