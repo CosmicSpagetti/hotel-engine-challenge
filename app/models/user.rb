@@ -11,7 +11,8 @@ class User < ApplicationRecord
         UserSearch.create(search_id: search.id, user_id: self.id)
         search.update(count: search.count + 1)
       else
-        Search.create(query: path, count: 0)
+        search = Search.create(query: path, count: 1)
+        UserSearch.create(search_id: search.id, user_id: self.id)
       end
     end
 end

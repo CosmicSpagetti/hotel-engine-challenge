@@ -1,6 +1,5 @@
 class Api::V1::User::SearchesController < ApplicationController
   def index
-    binding.pry
-    render json: SearchSerializer.new(@current.searches)
+    render json: SearchSerializer.new(@current_user.searches)
   end 
 end

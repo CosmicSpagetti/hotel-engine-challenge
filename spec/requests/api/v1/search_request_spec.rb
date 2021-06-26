@@ -3,6 +3,7 @@ require 'rails_helper'
 describe 'search request endpoint' do 
   before :each do 
     User.destroy_all
+    Search.destroy_all
   end
 
 
@@ -22,9 +23,10 @@ describe 'search request endpoint' do
 
     result = JSON.parse(response.body, symbolize_names: true)[:data] 
     
-    expect(result[:attributes][:results].first).to eq('/api/v1/movies/list/popular')
-    expect(result[:attributes][:results].second).to eq('/api/v1/movies/list/popular')
-    expect(result[:attributes][:results].third).to eq('/api/v1/movies/list/upcoming')
+    expect(result.first[:attributes][:query]).to eq('/api/v1/movies/list/popular')
+    expect(result.second[:attributes][:query]).to eq('/api/v1/movies/list/popular')
+    expect(result.second[:attributes][:count]).to eq(2)
+    expect(result.third[:attributes][:query]).to eq('/api/v1/movies/list/upcoming')
   end
 
   it 'should return all searches with all counts how many times they were searched' do 
