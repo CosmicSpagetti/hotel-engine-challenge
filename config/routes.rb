@@ -8,6 +8,7 @@ Rails.application.routes.draw do
       get "movies/search", to: 'movies#search'
       get "movie/:id", to: 'movies#show'
       get "user/searches", to: 'user/searches#index'
+      get "searches", to: 'searches#index'
     end
   end
 end

@@ -45,10 +45,10 @@ describe 'search request endpoint' do
 
     result = JSON.parse(response.body, symbolize_names: true)[:data] 
     
-    expect(result[:attributes][:results].first[:query]).to eq('/api/v1/movies/list/popular')
-    expect(result[:attributes][:results].first[:count]).to eq(2)
-    expect(result[:attributes][:results].second[:query]).to eq('/api/v1/movies/list/upcoming')
-    expect(result[:attributes][:results].second[:count]).to eq(1)
+    expect(result.first[:attributes][:query]).to eq('/api/v1/movies/list/popular')
+    expect(result.first[:attributes][:count]).to eq(2)
+    expect(result.second[:attributes][:query]).to eq('/api/v1/movies/list/upcoming')
+    expect(result.second[:attributes][:count]).to eq(1)
   end
   
 end
