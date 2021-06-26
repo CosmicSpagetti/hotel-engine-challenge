@@ -1,5 +1,9 @@
 class MovieService 
 
+  def self.get_movie(id)
+    new.get_results("movie/#{id}")
+  end
+
   def self.get_list(filter, params={})
     new.get_results("movie/#{filter}", params)
   end
