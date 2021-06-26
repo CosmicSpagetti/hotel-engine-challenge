@@ -1,5 +1,6 @@
 class Api::V1::MoviesController < ApplicationController
     def index
+      current_user.add_or_create_search(request.fullpath)
       render json: MovieSerializer.new( Movie.new(MovieService.get_list(params[:genre])) )
     end
 
